@@ -95,7 +95,7 @@ const LoginForm =  (props) => {
             <Pwarning style={{color: 'red'}}>{errors.password}</Pwarning>  : ''}
           </Warning>
           <div>
-            <Link href='/password-reset' style={{color: button2}}>
+            <Link to='/password-reset' style={{color: button2}}>
               <Para>Forgot Password?</Para>
             </Link>
           </div>
