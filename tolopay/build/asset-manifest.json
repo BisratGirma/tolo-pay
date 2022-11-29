@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e7986549.css",
+    "main.js": "/static/js/main.10b64f20.js",
+    "static/media/qr2.jpg": "/static/media/qr2.89cadb1694e8dd16bc6b.jpg",
+    "static/media/Inter-VariableFont_slnt,wght.ttf": "/static/media/Inter-VariableFont_slnt,wght.aadb65ac45347ff46699.ttf",
+    "static/media/l2.png": "/static/media/l2.e1cb277a74cc13b66a4b.png",
+    "static/media/map.png": "/static/media/map.12ea2ebb99335e1e0de2.png",
+    "static/media/tolopayLogo.png": "/static/media/tolopayLogo.b90cc15865c796bcb17e.png",
+    "static/media/pattern.png": "/static/media/pattern.0b921a8066550feb0645.png",
+    "static/media/5.jpg": "/static/media/5.3e55ee5f667d94054da3.jpg",
+    "static/media/logo.svg": "/static/media/logo.f9250b5a4a23b4ae0d993fe7cfb2a8b6.svg",
+    "index.html": "/index.html",
+    "main.e7986549.css.map": "/static/css/main.e7986549.css.map",
+    "main.10b64f20.js.map": "/static/js/main.10b64f20.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7986549.css",
+    "static/js/main.10b64f20.js"
+  ]
+}
