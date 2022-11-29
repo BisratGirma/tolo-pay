@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -95,9 +95,9 @@ const LoginForm =  (props) => {
             <Pwarning style={{color: 'red'}}>{errors.password}</Pwarning>  : ''}
           </Warning>
           <div>
-            <a href='/password-reset' style={{color: button2}}>
+            <Link href='/password-reset' style={{color: button2}}>
               <Para>Forgot Password?</Para>
-            </a>
+            </Link>
           </div>
 
         <LoginButton type='submit' disabled={isSubmitting}><span>Login to Your Account</span></LoginButton>

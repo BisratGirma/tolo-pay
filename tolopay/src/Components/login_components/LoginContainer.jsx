@@ -7,7 +7,7 @@ import { Heading, AlternatePara, Container,
 import { Loading } from "../commonStyles";
 import LoginForm from './LoginForm';
 import { Context } from "../../context/Context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', sans-serif"
@@ -105,7 +105,7 @@ const LoginContainer = props => {
 
         
         <div>
-            <Para >Don't have Account yet? <a href="/signup">Create Account Now</a></Para>
+            <Para >Don't have Account yet? <Link href="/signup">Create Account Now</Link></Para>
         </div>
         
         
