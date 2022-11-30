@@ -2,13 +2,12 @@ import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { useForm } from "react-hook-form";
 import { Context } from "../../context/Context";
-import api from "../../api/api"
-
+import axios from 'axios';
  
  
 
 export default function Edit() {
-  const { user, dispatch } = useContext(Context);
+  const { user, dispatch ,token} = useContext(Context);
 
   const {
     register,
@@ -18,20 +17,24 @@ export default function Edit() {
     trigger,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    console.log(user.data.user.id)
-    api.post('/users/change-info', {
+  const onSubmit = async (data) => {
+        console.log("<>",data);
+    console.log("<>",user.data.user.id)
+      const res = await axios.post("http://localhost:8000/api/v1/users/change-info",
+      {
       id: user.data.user.id,
       name: data.firstName,
       phoneNumber: data.phone,
       email: data.email
-    }).then(res => {
-      console.log(res)
+    }, 
+    {
+    headers: {
+      Authorization:
+        `Bearer ${token}`,
+    },
+  });
+    
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
-    }).catch(err => {
-      console.log(err)
-    })
     reset();
   };
  
@@ -59,32 +62,16 @@ export default function Edit() {
               )}
      </InputWrap>
 
-     {/* <InputWrap>
-     <Label>Last Name</Label>
-     <input placeholder='Ibrahim' type='text' 
-      className={`form-control ${errors.email && "invalid"}`}
-      {...register("lastName", { required: "LastName is Required" ,
-      pattern: {
-      value: /^[A-Za-z]/,
-      message: "Invalid input name must only contain letters",
-      }})}
-      onKeyUp={() => {
-        trigger("lastName");
-      }}/>
-       {errors.lastName && (
-                <small className="text-danger">{errors.lastName.message}</small>
-              )}
-     </InputWrap> */}
      </Input> 
 
      <Input>
      <InputWrap>
      <Label>Phone Number</Label>
-     <input  defaultValue={user.data.user.phoneNumber ? user.data.user.phoneNumber : ''} placeholder="0900000000" type='number'
+     <input  defaultValue={user.data.user.phoneNumber ? user.data.user.phoneNumber : ''}  type='number'
        className={`form-control ${errors.phone && "invalid"}`}
        {...register("phone", { required: "Phone  number is Required",
        pattern: {
-         value: /^\s*(?:\+?(\d[09]))[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{2})(?: *x(\d+))?\s*$/,
+        value: /^\s*(?:\+?(^[0][9]))[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{2})(?: *x(\d+))?\s*$/,
          message: "Invalid phone number",
        },
       })}
@@ -95,7 +82,8 @@ export default function Edit() {
                 <small className="text-danger">{errors.phone.message}</small>
               )}
      </InputWrap>
-
+</Input>
+<Input>
      <InputWrap>
      <Label>Email</Label>
      <input defaultValue={user.data.user.email} placeholder="example@email.com" type='Email'
@@ -114,41 +102,6 @@ export default function Edit() {
      </InputWrap>
      </Input> 
 
-     {/* <Input>
-     <InputWrap>
-     <Label>Username</Label>
-     <input  placeholder='@sumeya' type='text' 
-     className={`form-control ${errors.user && "invalid"}`}
-     {...register("user", { required: "User name is Required",
-    })}
-    onKeyUp={() => {
-      trigger("user");
-    }}
-     />
-      {errors.user && (
-                <small className="text-danger">{errors.user.message}</small>
-              )}
-     </InputWrap>
-
-     <InputWrap>
-     <Label>City</Label>
-     <input placeholder='Addis Ababa ' type='text'
-     className={`form-control ${errors.city && "invalid"}`}
-     {...register("city", { required: "City name is Required",
-     pattern: {
-      value: /^[A-Za-z]/,
-      message: "Invalid input name must only contain letters",
-      } })}
-    onKeyUp={() => {
-      trigger("city");
-    }}
-     />
-      {errors.city && (
-                <small className="text-danger">{errors.city.message}</small>
-              )}
-     </InputWrap>
-     
-     </Input>  */}
      <BtnWrapper>
      <Button type='submit'>Update</Button>
      </BtnWrapper>

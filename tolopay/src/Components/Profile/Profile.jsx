@@ -6,18 +6,57 @@ import {Tab,Box }from '@mui/material'
 import Edit from "./Edit";
 import ChangePassword from "./ChangePassword";
 import { Context } from "../../context/Context";
+import axios from 'axios';
  
  
 
 function Profile({file,handle}) {
-  const { user } = useContext(Context);
+  const { user,dispatch ,token} = useContext(Context);
    const [value, setValue] = useState('1')
+   const [image, setImage] = useState('')
+   
+   
    const handleChange = (event, newValue) => {
     setValue(newValue)
    }
+  console.log(user)
+  
 
+  const handleImageChange = (e) => {
+    console.log(e.target.files,"<<<<<<<<")
+    setImage(e.target.files[0])
+  }
+
+  
+  
+  const handleFile = (e) => {
+     
+    //call the api
+    const url = 'http://localhost:8000/api/v1/users/profileImage'
+
+    const formData = new FormData()
+    formData.append('profileimage', image)
+    console.log(image,">>>>>>>")
+    axios.post(url, formData,{
+    headers: {
+      Authorization:
+        `Bearer ${token}`,
+    },
+  }).then(result => {
+      console.log(result.data)
+       
+       dispatch({ type: "UPDATE_SUCCESS", payload: result.data });
+      
+    })
+      .catch(error => {
+        
+        console.log(error)
+      })
+  }
+  
+  
   return (
-    
+     
     <Con>
     <Container>
       <SubContainer>
@@ -30,16 +69,22 @@ function Profile({file,handle}) {
                 <div className='img'> 
                <img 
                src={
-                file
-                  ? URL.createObjectURL(file)
+                 user.data.user.profileimage
+                  ?`http://localhost:8000/${user.data.user.profileimage}`
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                  }
+                 
+                
                  alt=""
                />
+               
             </div>
-                <div className="changeImg"><label htmlFor="file"><CameraAltIcon/></label></div>
-                <input type="file" id="file" onChange={handle} style={{display: "none"}}/>
-            </div>
+                <div className="changeImg" ><label htmlFor="file"><CameraAltIcon/></label></div>
+                <Button onClick={handleFile}>UPLOAD</Button>
+                
+                <input type="file" id="file" onChange={handleImageChange} style={{display: "none"}}/>
+            </div> 
+            
             <Name>{user.data.user.name}</Name>
             <Phone>{user.data.user.phoneNumber ? user.data.user.phoneNumber : ''}</Phone>
             </div>
@@ -111,7 +156,30 @@ const Container = styled.div`
     margin: 1rem 0 1rem 0;
   }
 `;
+const Button = styled.button`
+margin-top: 16px;
+border-radius: 4px;
+border: none;
+width: 100px;
+height:30px;
+background: rgb(58, 135, 190);
+white-space: nowrap;
+padding: 8px 12px;
+margin-left: 0;
+font-size: 12px;
+font-weight: 400;
+color: #fff;
+outline: none;
+cursor: pointer;
+overflow: hidden;
+text-decoration: none;
+text-align: center;
 
+&:hover{
+  background: rgba(58, 135, 190, 0.7);
+}
+
+`
 const Con = styled.div`
 width: 100%;
 height: 100%;
